@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - recipe_net
+
+  backend:
+    build:
+      context: ./backend
+    container_name: recipe_backend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+    environment:
+      - MONGO_URI=${MONGO_URI}
+    networks:
+      - recipe_net
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: recipe_frontend
+    ports:
+      - "8501:8501"
+    depends_on:
+      - backend
+    networks:
+      - recipe_net
+
+volumes:
+  mongo_data:
+
+networks:
+  recipe_net:
+    driver: bridge
