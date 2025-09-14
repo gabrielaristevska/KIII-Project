@@ -23,4 +23,4 @@ spec:
           valueFrom:
             configMapKeyRef:
               name: app-config
-              key: MONGO-URI
+              key: MONGO_URI

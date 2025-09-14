@@ -3,8 +3,6 @@ kind: Ingress
 metadata:
   name: recipe-ingress
   namespace: recipe-app
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
     - host: recipe.local
@@ -16,7 +14,7 @@ spec:
               service:
                 name: backend
                 port:
-                  number: 80
+                  number: 5000
           - path: /
             pathType: Prefix
             backend:
