@@ -22,13 +22,13 @@ def recipe_serializer(recipe) -> dict:
     }
 
 
-@app.route("/api/recipes", methods=["GET"])
+@app.route("/recipes", methods=["GET"])
 def get_recipes():
     all_recipes = list(recipes.find())
     return jsonify([recipe_serializer(r) for r in all_recipes])
 
 
-@app.route("/api/recipes/<id>", methods=["GET"])
+@app.route("/recipes/<id>", methods=["GET"])
 def get_recipe(id):
     recipe = recipes.find_one({"_id": ObjectId(id)})
     if recipe:
@@ -36,7 +36,7 @@ def get_recipe(id):
     return jsonify({"error": "Recipe not found"}), 404
 
 
-@app.route("/api/recipes", methods=["POST"])
+@app.route("/recipes", methods=["POST"])
 def add_recipe():
     data = request.json
     new_recipe = {
@@ -48,7 +48,7 @@ def add_recipe():
     return jsonify({"id": str(result.inserted_id)}), 201
 
 
-@app.route("/api/recipes/<id>", methods=["PUT"])
+@app.route("/recipes/<id>", methods=["PUT"])
 def update_recipe(id):
     data = request.json
     update_data = {
@@ -62,7 +62,7 @@ def update_recipe(id):
     return jsonify({"error": "Recipe not found"}), 404
 
 
-@app.route("/api/recipes/<id>", methods=["DELETE"])
+@app.route("/recipes/<id>", methods=["DELETE"])
 def delete_recipe(id):
     result = recipes.delete_one({"_id": ObjectId(id)})
     if result.deleted_count:

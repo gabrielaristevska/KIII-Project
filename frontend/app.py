@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-API_URL = "http://recipe.local/api/recipes"
+API_URL = "http://backend:5000/recipes"
 
 st.title("Simple Recipe Organizer")
 
